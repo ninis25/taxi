@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCP - Réservation | Réserver votre trajet</title>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <link rel="stylesheet" href="/style.css">
+    <link id="favicon" rel="icon" type="image/png" href="/images/favicon_white.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="/" class="logo-link" aria-label="NCP - Transport premium Paris">
+                    <img id="navbarLogo" src="/images/favicon_white.png" alt="NCP - Logo" class="logo-img">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" data-i18n="nav.home">Accueil</a></li>
+                <li><a href="/vehicules" data-i18n="nav.vehicles">Véhicules</a></li>
+                <li><a href="/services" data-i18n="nav.services">Services</a></li>
+                <li><a href="/destinations" data-i18n="nav.reims">Destinations</a></li>
+                <li><a href="/reservation" class="active" data-i18n="nav.booking">Réservation</a></li>
+                <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="language-switcher" aria-label="Choix de la langue du site">
+                    <button type="button" class="lang-btn" data-lang="fr" aria-label="Français">🇫🇷</button>
+                    <button type="button" class="lang-btn" data-lang="en" aria-label="English">🇬🇧</button>
+                    <button type="button" class="lang-btn" data-lang="de" aria-label="Deutsch">🇩🇪</button>
+                    <button type="button" class="lang-btn" data-lang="es" aria-label="Español">🇪🇸</button>
+                    <button type="button" class="lang-btn" data-lang="it" aria-label="Italiano">🇮🇹</button>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+                    <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 data-i18n="reservation.title">Réservation</h1>
+            <p data-i18n="reservation.subtitle">Remplissez le formulaire ci-dessous avec tous les détails de votre trajet. Notre équipe vous confirme votre réservation sous 2 heures maximum par SMS et email avec tous les détails (heure exacte, immatriculation, nom du chauffeur).</p>
+        </div>
+    </section>
+
+    <!-- Comment ça marche Section -->
+    <section class="how-it-works" style="padding: 4rem 0; background: var(--color-bg-alt);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="howItWorks.title">Comment ça marche</h2>
+                <p class="section-subtitle" data-i18n="howItWorks.subtitle">Un processus simple en 4 étapes</p>
+            </div>
+            <div class="steps-container">
+                <div class="step-item">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="howItWorks.step1.title">Remplissez le formulaire</h3>
+                    <p data-i18n="howItWorks.step1.text">Indiquez vos préférences : véhicule, date, heure, lieux de départ et destination</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="howItWorks.step2.title">Confirmation rapide</h3>
+                    <p data-i18n="howItWorks.step2.text">Notre équipe vous confirme sous 2 heures avec tous les détails</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="howItWorks.step3.title">Prise en charge</h3>
+                    <p data-i18n="howItWorks.step3.text">Votre chauffeur arrive 5 minutes avant avec panneau nominatif</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">04</div>
+                    <div class="step-icon">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="howItWorks.step4.title">Arrivée</h3>
+                    <p data-i18n="howItWorks.step4.text">Vous arrivez à destination en toute sérénité</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Réservation Section -->
+    <section class="reservation">
+        <div class="container">
+            <div class="reservation-form-container">
+                <!-- Message de succès (affiché après envoi réussi) -->
+                <div class="reservation-success-block" id="reservationSuccessBlock" aria-live="polite" hidden>
+                    <div class="reservation-success-icon" aria-hidden="true">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                    </div>
+                    <h2 class="reservation-success-title" data-i18n="reservation.success.title">Demande envoyée</h2>
+                    <p class="reservation-success-text" data-i18n="reservation.success.text">Merci pour votre réservation. Nous vous avons envoyé un email de confirmation. Notre équipe vous recontactera sous 2 heures pour confirmer votre trajet.</p>
+                    <a href="/" class="btn-primary reservation-success-btn" data-i18n="reservation.success.btn">Retour à l'accueil</a>
+                </div>
+                <!-- Formulaire -->
+                <form class="reservation-form" id="reservationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nom" data-i18n="form.fullName.label">Nom complet *</label>
+                            <input type="text" id="nom" name="nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone" data-i18n="form.phone.label">Téléphone *</label>
+                            <input type="tel" id="telephone" name="telephone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" data-i18n="form.email.label">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <!-- Sélecteur de véhicule (visible en mode Sur-mesure) -->
+                    <div class="vehicle-selector" id="vehicleSelector" hidden>
+                        <label class="vehicle-selector-label">Choisissez votre véhicule *</label>
+                        <div class="vehicle-cards">
+                            <div class="vehicle-card" data-vehicle="berline-affaire" tabindex="0">
+                                <div class="vehicle-card-icon">
+                                    <svg width="64" height="40" viewBox="0 0 64 40" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M8 28h48M12 28l4-12h32l4 12M16 16l2-6h28l2 6"/>
+                                        <circle cx="16" cy="28" r="4"/><circle cx="48" cy="28" r="4"/>
+                                        <path d="M22 16v-2h20v2"/>
+                                    </svg>
+                                </div>
+                                <div class="vehicle-card-info">
+                                    <span class="vehicle-card-name">Berline Affaire</span>
+                                    <span class="vehicle-card-desc">Mercedes Classe E</span>
+                                    <span class="vehicle-card-passengers">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                        3 passagers max
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="vehicle-card" data-vehicle="van-premium" tabindex="0">
+                                <div class="vehicle-card-icon">
+                                    <svg width="64" height="40" viewBox="0 0 64 40" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M6 28h52M10 28V12h36l8 10v6M10 12h30v16"/>
+                                        <circle cx="16" cy="28" r="4"/><circle cx="48" cy="28" r="4"/>
+                                        <path d="M14 18h8v6h-8z M26 18h8v6h-8z"/>
+                                    </svg>
+                                </div>
+                                <div class="vehicle-card-info">
+                                    <span class="vehicle-card-name">Van Premium</span>
+                                    <span class="vehicle-card-desc">Mercedes Classe V</span>
+                                    <span class="vehicle-card-passengers">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                        7 passagers max
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="vehicle-card" data-vehicle="classe-s" tabindex="0">
+                                <div class="vehicle-card-icon">
+                                    <svg width="64" height="40" viewBox="0 0 64 40" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M6 28h52M10 28l6-14h32l6 14M16 14l2-4h28l2 4"/>
+                                        <circle cx="14" cy="28" r="4"/><circle cx="50" cy="28" r="4"/>
+                                        <path d="M20 14v-2h24v2"/>
+                                        <path d="M24 20h16v4H24z" stroke-dasharray="2 2"/>
+                                    </svg>
+                                </div>
+                                <div class="vehicle-card-info">
+                                    <span class="vehicle-card-name">Classe S</span>
+                                    <span class="vehicle-card-desc">Mercedes Classe S</span>
+                                    <span class="vehicle-card-passengers">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                        3 passagers max
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="vehicule" name="vehicule" value="">
+                    </div>
+
+                    <!-- Info Navette (visible en mode Navette Event) -->
+                    <div class="navette-info" id="navetteInfo" hidden>
+                        <div class="navette-info-card">
+                            <div class="navette-info-icon">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M3 17h18M5 17V9a2 2 0 012-2h10a2 2 0 012 2v8M7 7V5h10v2"/>
+                                    <circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>
+                                </svg>
+                            </div>
+                            <div class="navette-info-text">
+                                <span class="navette-info-title">Navette Eurosatory</span>
+                                <span class="navette-info-price">12,00 € / personne</span>
+                                <span class="navette-info-desc">Trajet direct hôtel → Eurosatory</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date" data-i18n="form.date.label">Date *</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="heure" data-i18n="form.time.label">Heure *</label>
+                            <input type="time" id="heure" name="heure" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="depart" data-i18n="form.depart.label">Lieu de départ *</label>
+                        <input type="text" id="depart" name="depart" placeholder="Adresse complète" required data-i18n="form.depart.placeholder" data-i18n-attr="placeholder">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="destination" data-i18n="form.destination.label">Destination *</label>
+                        <input type="text" id="destination" name="destination" placeholder="Adresse complète" required data-i18n="form.destination.placeholder" data-i18n-attr="placeholder">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="passagers" data-i18n="form.passengers.label">Nombre de passagers *</label>
+                        <input type="number" id="passagers" name="passagers" min="1" max="8" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" data-i18n="form.message.label">Message (optionnel)</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Informations complémentaires..." data-i18n="form.message.placeholder" data-i18n-attr="placeholder"></textarea>
+                    </div>
+                    
+                    <div class="reservation-form-footer">
+                        <p class="reservation-error-message" id="reservationErrorMessage" role="alert" aria-live="assertive" hidden></p>
+                        <!-- Mode Sur-mesure : demande de réservation sans paiement -->
+                        <button type="submit" class="btn-submit btn-devis" id="reservationDevisBtn">Demander une réservation</button>
+                        <!-- Mode Navette Event : paiement direct 12€ -->
+                        <button type="button" class="btn-submit btn-payer" id="reservationPayBtn" hidden>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px;vertical-align:middle;">
+                                <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+                            </svg>
+                            Payer par carte (12 €)
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="info-section" style="padding: 4rem 0; background: var(--color-bg-alt);">
+        <div class="container">
+            <div class="info-box">
+                <h4 data-i18n="info.title">Informations importantes</h4>
+                <ul>
+                    <li data-i18n="info.cancellation" data-i18n-attr="html"><strong>Annulation :</strong> Gratuite jusqu'à 2 heures avant l'heure prévue</li>
+                    <li data-i18n="info.payment" data-i18n-attr="html"><strong>Paiement :</strong> Carte bancaire, virement, espèces ou chèque acceptés</li>
+                    <li data-i18n="info.confirmation" data-i18n-attr="html"><strong>Confirmation :</strong> Vous recevrez un SMS et un email de confirmation</li>
+                    <li data-i18n="info.emergency" data-i18n-attr="html"><strong>Urgence :</strong> Pour les réservations de dernière minute, appelez-nous directement au +33 1 XX XX XX XX</li>
+                    <li data-i18n="info.modification" data-i18n-attr="html"><strong>Modification :</strong> Toute modification peut être effectuée jusqu'à 2 heures avant</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img id="footerLogo" src="/images/favicon_white.png" alt="NCP - Logo" class="logo-img logo-img-footer">
+                </div>
+                <p class="footer-text" data-i18n="footer.description">Transport premium à Paris depuis 2014. NCP offre un service de qualité alliant confort, sécurité et ponctualité pour tous vos déplacements dans la capitale.</p>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 data-i18n="footer.navigation">Navigation</h4>
+                        <ul>
+                            <li><a href="/" data-i18n="nav.home">Accueil</a></li>
+                            <li><a href="/vehicules" data-i18n="nav.vehicles">Véhicules</a></li>
+                            <li><a href="/services" data-i18n="nav.services">Services</a></li>
+                            <li><a href="/destinations" data-i18n="nav.reims">Destinations</a></li>
+                            <li><a href="/reservation" data-i18n="nav.booking">Réservation</a></li>
+                            <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 data-i18n="footer.contactTitle">Contact</h4>
+                        <ul>
+                            <li data-i18n="footer.contact.phone">+33 1 XX XX XX XX</li>
+                            <li data-i18n="footer.contact.email">contact@ncp.fr</li>
+                            <li data-i18n="footer.contact.city">Paris, Île-de-France</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer.copyright">
+                    &copy; 2024 NCP. Tous droits réservés.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>

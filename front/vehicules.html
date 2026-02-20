@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCP - Notre Flotte | Véhicules Premium</title>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <link rel="stylesheet" href="/style.css">
+    <link id="favicon" rel="icon" type="image/png" href="/images/favicon_white.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="/" class="logo-link" aria-label="NCP - Transport premium Paris">
+                    <img id="navbarLogo" src="/images/favicon_white.png" alt="NCP - Logo" class="logo-img">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" data-i18n="nav.home">Accueil</a></li>
+                <li><a href="/vehicules" class="active" data-i18n="nav.vehicles">Véhicules</a></li>
+                <li><a href="/services" data-i18n="nav.services">Services</a></li>
+                <li><a href="/destinations" data-i18n="nav.reims">Destinations</a></li>
+                <li><a href="/reservation" data-i18n="nav.booking">Réservation</a></li>
+                <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="language-switcher" aria-label="Choix de la langue du site">
+                    <button type="button" class="lang-btn" data-lang="fr" aria-label="Français">🇫🇷</button>
+                    <button type="button" class="lang-btn" data-lang="en" aria-label="English">🇬🇧</button>
+                    <button type="button" class="lang-btn" data-lang="de" aria-label="Deutsch">🇩🇪</button>
+                    <button type="button" class="lang-btn" data-lang="es" aria-label="Español">🇪🇸</button>
+                    <button type="button" class="lang-btn" data-lang="it" aria-label="Italiano">🇮🇹</button>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+                    <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 data-i18n="vehicules.title">Notre Flotte</h1>
+            <p data-i18n="vehicules.subtitle">Trois véhicules Mercedes-Benz entretenus régulièrement et maintenus en parfait état</p>
+        </div>
+    </section>
+
+    <!-- Véhicules Section -->
+    <section class="vehicules">
+        <div class="container">
+            <div class="section-header" style="margin-bottom: 3rem;">
+                <p class="section-subtitle" data-i18n="vehicules.inspect">Chaque véhicule est inspecté avant chaque course pour garantir votre sécurité et votre confort</p>
+            </div>
+            <div class="vehicules-grid">
+                <!-- Classe E -->
+                <div class="vehicule-card">
+                    <div class="vehicule-image">
+                        <img src="/images/classe-e.png" alt="Mercedes-Benz Classe E - Berline premium pour transport professionnel et privé" id="img-classe-e" loading="eager">
+                        <div class="vehicule-badge" data-i18n="vehicules.badge.elegance">Élégance</div>
+                    </div>
+                    <div class="vehicule-content">
+                        <h3 class="vehicule-name" data-i18n="vehicules.e.name">Classe E</h3>
+                        <p class="vehicule-description" data-i18n="vehicules.e.desc">Berline premium Mercedes-Benz Classe E, idéale pour vos déplacements professionnels et privés. Confort exceptionnel et espace généreux pour travailler efficacement ou vous détendre pendant vos trajets parisiens. Équipements haut de gamme et finitions soignées.</p>
+                        <ul class="vehicule-features">
+                            <li data-i18n="vehicules.e.f1">Sièges cuir avec réglages électriques</li>
+                            <li data-i18n="vehicules.e.f2">Espace pour 4 passagers</li>
+                            <li data-i18n="vehicules.e.f3">Système audio haut de gamme</li>
+                            <li data-i18n="vehicules.e.f4">WiFi et prises USB</li>
+                            <li data-i18n="vehicules.e.f5">Climatisation multi-zones</li>
+                            <li data-i18n="vehicules.e.f6">Navigation GPS intégrée</li>
+                        </ul>
+                        <a href="/reservation" class="btn-vehicule" data-i18n="vehicules.bookBtn">Réserver ce véhicule</a>
+                    </div>
+                </div>
+
+                <!-- Classe S -->
+                <div class="vehicule-card featured">
+                    <div class="vehicule-badge-premium" data-i18n="vehicules.badge.premium">Premium</div>
+                    <div class="vehicule-image">
+                        <img src="/images/classe-s.png" alt="Mercedes-Benz Classe S - Berline de luxe avec espace VIP arrière premium" id="img-classe-s" loading="eager">
+                        <div class="vehicule-badge" data-i18n="vehicules.badge.luxury">Luxe</div>
+                    </div>
+                    <div class="vehicule-content">
+                        <h3 class="vehicule-name" data-i18n="vehicules.s.name">Classe S</h3>
+                        <p class="vehicule-description" data-i18n="vehicules.s.desc">Le summum du luxe automobile Mercedes-Benz. La Classe S offre un espace VIP arrière exceptionnel avec finitions sur-mesure en cuir et bois précieux. Parfaite pour les occasions spéciales, événements prestigieux, et clients exigeants qui recherchent l'excellence absolue.</p>
+                        <ul class="vehicule-features">
+                            <li data-i18n="vehicules.s.f1">Intérieur cuir et bois précieux</li>
+                            <li data-i18n="vehicules.s.f2">Écrans tactiles et système MBUX</li>
+                            <li data-i18n="vehicules.s.f3">Sièges massants arrière</li>
+                            <li data-i18n="vehicules.s.f4">Bar réfrigéré optionnel</li>
+                            <li data-i18n="vehicules.s.f5">Isolation phonique renforcée</li>
+                            <li data-i18n="vehicules.s.f6">Service premium inclus</li>
+                        </ul>
+                        <a href="/reservation" class="btn-vehicule" data-i18n="vehicules.bookBtn">Réserver ce véhicule</a>
+                    </div>
+                </div>
+
+                <!-- Classe V -->
+                <div class="vehicule-card">
+                    <div class="vehicule-image">
+                        <img src="/images/viano.png" alt="Mercedes Classe V (Viano) - Van de luxe pour groupes jusqu'à 8 passagers" id="img-viano" loading="eager">
+                        <div class="vehicule-badge" data-i18n="vehicules.badge.capacity">Capacité</div>
+                    </div>
+                    <div class="vehicule-content">
+                        <h3 class="vehicule-name" data-i18n="vehicules.v.name">Classe V</h3>
+                        <p class="vehicule-description" data-i18n="vehicules.v.desc">Van de luxe Mercedes Classe V (Viano) pouvant accueillir jusqu'à 8 personnes confortablement. Intérieur premium aménagé avec sièges individuels en cuir, espace cargo généreux, et équipements haut de gamme. Parfait pour familles nombreuses, séminaires d'entreprise, ou événements nécessitant un transport de groupe élégant.</p>
+                        <ul class="vehicule-features">
+                            <li data-i18n="vehicules.v.f1">Intérieur premium aménagé</li>
+                            <li data-i18n="vehicules.v.f2">Jusqu'à 8 passagers</li>
+                            <li data-i18n="vehicules.v.f3">Sièges individuels en cuir</li>
+                            <li data-i18n="vehicules.v.f4">Espace cargo généreux</li>
+                            <li data-i18n="vehicules.v.f5">Climatisation multi-zones</li>
+                            <li data-i18n="vehicules.v.f6">Portes coulissantes automatiques</li>
+                            <li data-i18n="vehicules.v.f7">WiFi et équipements premium</li>
+                        </ul>
+                        <a href="/reservation" class="btn-vehicule" data-i18n="vehicules.bookBtn">Réserver ce véhicule</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerie Véhicules -->
+    <section class="gallery" style="padding: 6rem 0; background: var(--color-bg-alt);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="vehicules.gallery.title">Galerie Intérieurs</h2>
+                <p class="section-subtitle" data-i18n="vehicules.gallery.subtitle">Découvrez l'intérieur de nos véhicules premium</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="/images/interieur-classe-e.png" alt="Intérieur luxueux Mercedes Classe E - Sièges cuir électriques, espace confortable, équipements premium" class="gallery-img" loading="lazy">
+                    <div class="gallery-overlay">
+                        <p data-i18n="home.gallery.caption.eInterior">Intérieur Classe E</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/images/interieur-classe-s.jpg" alt="Intérieur VIP Mercedes Classe S - Espace arrière premium, finitions cuir et bois précieux, sièges massants" class="gallery-img" loading="lazy">
+                    <div class="gallery-overlay">
+                        <p data-i18n="home.gallery.caption.sInterior">Intérieur Classe S</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/images/interieur-viano.jpg" alt="Intérieur aménagé Mercedes Classe V - Sièges individuels en cuir, espace généreux pour 8 passagers, équipements premium" class="gallery-img" loading="lazy">
+                    <div class="gallery-overlay">
+                        <p data-i18n="home.gallery.caption.vInterior">Intérieur Classe V</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/images/equipements.webp" alt="Équipements premium" class="gallery-img" loading="lazy">
+                    <div class="gallery-overlay">
+                        <p data-i18n="home.gallery.caption.equipment">Équipements Premium</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- (Section Tarifs retirée à la demande : les informations de prix sont désormais fournies uniquement sur devis.) -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img id="footerLogo" src="/images/favicon_white.png" alt="NCP - Logo" class="logo-img logo-img-footer">
+                </div>
+                <p class="footer-text" data-i18n="footer.description">Transport premium à Paris depuis 2014. NCP offre un service de qualité alliant confort, sécurité et ponctualité pour tous vos déplacements dans la capitale.</p>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 data-i18n="footer.navigation">Navigation</h4>
+                        <ul>
+                            <li><a href="/" data-i18n="nav.home">Accueil</a></li>
+                            <li><a href="/vehicules" data-i18n="nav.vehicles">Véhicules</a></li>
+                            <li><a href="/services" data-i18n="nav.services">Services</a></li>
+                            <li><a href="/destinations" data-i18n="nav.reims">Destinations</a></li>
+                            <li><a href="/reservation" data-i18n="nav.booking">Réservation</a></li>
+                            <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 data-i18n="footer.contactTitle">Contact</h4>
+                        <ul>
+                            <li data-i18n="footer.contact.phone">+33 1 XX XX XX XX</li>
+                            <li data-i18n="footer.contact.email">contact@ncp.fr</li>
+                            <li data-i18n="footer.contact.city">Paris, Île-de-France</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer.copyright">&copy; 2026 NCP. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>

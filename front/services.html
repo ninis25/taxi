@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCP - Nos Services | Transport Premium</title>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <link rel="stylesheet" href="/style.css">
+    <link id="favicon" rel="icon" type="image/png" href="/images/favicon_white.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="/" class="logo-link" aria-label="NCP - Transport premium Paris">
+                    <img id="navbarLogo" src="/images/favicon_white.png" alt="NCP - Logo" class="logo-img">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" data-i18n="nav.home">Accueil</a></li>
+                <li><a href="/vehicules" data-i18n="nav.vehicles">Véhicules</a></li>
+                <li><a href="/services" class="active" data-i18n="nav.services">Services</a></li>
+                <li><a href="/destinations" data-i18n="nav.reims">Destinations</a></li>
+                <li><a href="/reservation" data-i18n="nav.booking">Réservation</a></li>
+                <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="language-switcher" aria-label="Choix de la langue du site">
+                    <button type="button" class="lang-btn" data-lang="fr" aria-label="Français">🇫🇷</button>
+                    <button type="button" class="lang-btn" data-lang="en" aria-label="English">🇬🇧</button>
+                    <button type="button" class="lang-btn" data-lang="de" aria-label="Deutsch">🇩🇪</button>
+                    <button type="button" class="lang-btn" data-lang="es" aria-label="Español">🇪🇸</button>
+                    <button type="button" class="lang-btn" data-lang="it" aria-label="Italiano">🇮🇹</button>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+                    <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 data-i18n="services.title">Nos Services</h1>
+            <p data-i18n="services.subtitle">Solutions de transport adaptées à vos besoins, de la course ponctuelle au service régulier</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                        </svg>
+                    </div>
+                    <div class="service-number">01</div>
+                    <h3 data-i18n="services.s1.title">Transferts Aéroport</h3>
+                    <p data-i18n="services.s1.text">Service de transfert premium vers et depuis les aéroports CDG, Orly et Le Bourget. Suivi de vol en temps réel pour s'adapter aux retards, panneau nominatif personnalisé, assistance complète pour vos bagages. Nos chauffeurs expérimentés connaissent parfaitement tous les terminaux et les meilleurs itinéraires pour éviter les embouteillages. Service disponible 24/7, 365 jours par an.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                    </div>
+                    <div class="service-number">02</div>
+                    <h3 data-i18n="services.s2.title">Événements d'Entreprise</h3>
+                    <p data-i18n="services.s2.text">Solutions de transport complètes pour séminaires, conférences, réceptions d'entreprise, et déplacements professionnels. Gestion de flottes pour groupes importants, coordination de plusieurs véhicules simultanément, planning optimisé. Facturation simplifiée avec devis détaillé et factures mensuelles pour les entreprises. Service dédié avec un interlocuteur unique.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 2v20M19 2v20M2 5h20M2 19h20"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                    <div class="service-number">03</div>
+                    <h3 data-i18n="services.s3.title">Soirées & Événements Prestigieux</h3>
+                    <p data-i18n="services.s3.text">Service premium pour mariages, galas, premières de spectacles, réceptions privées, et événements haut de gamme. Véhicules décorés sur demande (rubans, fleurs), chauffeurs en tenue formelle élégante, coordination complète avec les organisateurs d'événements. Nous garantissons une arrivée remarquée et mémorable pour vos invités.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                            <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/>
+                        </svg>
+                    </div>
+                    <div class="service-number">04</div>
+                    <h3 data-i18n="services.s4.title">Service au Mois</h3>
+                    <p data-i18n="services.s4.text">Solution idéale pour des déplacements réguliers : domicile-travail, rendez-vous récurrents, trajets quotidiens. Planning flexible adapté à vos contraintes, possibilité de chauffeur dédié pour un service personnalisé optimal, et facturation mensuelle simplifiée avec un interlocuteur unique. Devis personnalisé sur demande.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pourquoi Nous Section -->
+    <section class="why-us" style="padding: 6rem 0; background: var(--color-bg-alt);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="services.why.title">Pourquoi Choisir NCP</h2>
+                <p class="section-subtitle" data-i18n="services.why.subtitle">Des avantages qui font la différence</p>
+            </div>
+            <div class="why-us-grid">
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="services.why.c1.title">10+ Ans d'Expérience</h3>
+                    <p data-i18n="services.why.c1.text">Plus de 10 ans d'expérience dans le transport premium parisien. Réputation établie auprès de clients exigeants.</p>
+                </div>
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="services.why.c2.title">Disponibilité 24/7</h3>
+                    <p data-i18n="services.why.c2.text">Service disponible à toute heure, 7 jours sur 7. Que ce soit tôt le matin ou tard le soir, nous sommes là.</p>
+                </div>
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"/>
+                            <polygon points="12 15 17 21 7 21 12 15"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="services.why.c3.title">Flotte Premium</h3>
+                    <p data-i18n="services.why.c3.text">Véhicules Mercedes-Benz récents, entretenus par des professionnels certifiés. Inspection avant chaque course.</p>
+                </div>
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="services.why.c4.title">98% de Satisfaction</h3>
+                    <p data-i18n="services.why.c4.text">Engagement à dépasser vos attentes à chaque trajet. Service client dédié pour répondre à vos besoins.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comment ça marche Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="services.how.title">Comment ça marche</h2>
+                <p class="section-subtitle" data-i18n="services.how.subtitle">Un processus simple et efficace en 4 étapes</p>
+            </div>
+            <div class="steps-container">
+                <div class="step-item">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="services.how.step1.title">Réservation</h3>
+                    <p data-i18n="services.how.step1.text">Remplissez notre formulaire en ligne ou contactez-nous par téléphone. Indiquez vos préférences : véhicule, date, heure, lieu de départ et destination.</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="services.how.step2.title">Confirmation</h3>
+                    <p data-i18n="services.how.step2.text">Notre équipe vous confirme votre réservation sous 2 heures. Vous recevez un SMS et un email avec tous les détails : heure exacte, immatriculation, nom du chauffeur.</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="services.how.step3.title">Prise en charge</h3>
+                    <p data-i18n="services.how.step3.text">Votre chauffeur arrive 5 minutes avant l'heure prévue. Il vous accueille avec un panneau nominatif, vous aide avec vos bagages et vous installe confortablement.</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">04</div>
+                    <div class="step-icon">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="services.how.step4.title">Arrivée</h3>
+                    <p data-i18n="services.how.step4.text">Vous arrivez à destination en toute sérénité. Le paiement se fait par carte bancaire, virement ou espèces. Un reçu vous est envoyé automatiquement par email.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- (Section Tarifs retirée à la demande : les informations de prix sont désormais fournies uniquement sur devis.) -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img id="footerLogo" src="/images/favicon_white.png" alt="NCP - Logo" class="logo-img logo-img-footer">
+                </div>
+                <p class="footer-text" data-i18n="footer.description">Transport premium à Paris depuis 2014. NCP offre un service de qualité alliant confort, sécurité et ponctualité pour tous vos déplacements dans la capitale.</p>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 data-i18n="footer.navigation">Navigation</h4>
+                        <ul>
+                            <li><a href="/" data-i18n="nav.home">Accueil</a></li>
+                            <li><a href="/vehicules" data-i18n="nav.vehicles">Véhicules</a></li>
+                            <li><a href="/services" data-i18n="nav.services">Services</a></li>
+                            <li><a href="/destinations" data-i18n="nav.reims">Destinations</a></li>
+                            <li><a href="/reservation" data-i18n="nav.booking">Réservation</a></li>
+                            <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 data-i18n="footer.contactTitle">Contact</h4>
+                        <ul>
+                            <li data-i18n="footer.contact.phone">+33 1 XX XX XX XX</li>
+                            <li data-i18n="footer.contact.email">contact@ncp.fr</li>
+                            <li data-i18n="footer.contact.city">Paris, Île-de-France</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer.copyright">&copy; 2026 NCP. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCP - Navette Spéciale Eurosatory | Paiement</title>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <link rel="stylesheet" href="/style.css">
+    <link id="favicon" rel="icon" type="image/png" href="/images/favicon_white.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="/" class="logo-link" aria-label="NCP - Transport premium Paris">
+                    <img id="navbarLogo" src="/images/favicon_white.png" alt="NCP - Logo" class="logo-img">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" data-i18n="nav.home">Accueil</a></li>
+                <li><a href="/vehicules" data-i18n="nav.vehicles">Véhicules</a></li>
+                <li><a href="/services" data-i18n="nav.services">Services</a></li>
+                <li><a href="/destinations" data-i18n="nav.reims">Destinations</a></li>
+                <li><a href="/reservation" data-i18n="nav.booking">Réservation</a></li>
+                <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="language-switcher" aria-label="Choix de la langue du site">
+                    <button type="button" class="lang-btn" data-lang="fr" aria-label="Français">🇫🇷</button>
+                    <button type="button" class="lang-btn" data-lang="en" aria-label="English">🇬🇧</button>
+                    <button type="button" class="lang-btn" data-lang="de" aria-label="Deutsch">🇩🇪</button>
+                    <button type="button" class="lang-btn" data-lang="es" aria-label="Español">🇪🇸</button>
+                    <button type="button" class="lang-btn" data-lang="it" aria-label="Italiano">🇮🇹</button>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+                    <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Navette Spéciale Eurosatory</h1>
+            <p>Récapitulatif de votre commande et paiement sécurisé par carte bancaire via Stripe.</p>
+        </div>
+    </section>
+
+    <!-- Checkout Eurosatory -->
+    <section class="checkout-eurosatory">
+        <div class="container">
+            <div class="checkout-eurosatory-card">
+                <h2 class="checkout-eurosatory-title">Votre commande</h2>
+                <p class="checkout-eurosatory-subtitle">Navette Spéciale Eurosatory</p>
+
+                <!-- Sélecteur d'hôtel minimaliste premium -->
+                <div class="checkout-eurosatory-hotels">
+                    <p class="checkout-eurosatory-label">Hôtel de départ</p>
+                    <div class="checkout-hotel-selector" aria-label="Choix de l'hôtel de départ">
+                        <button type="button" class="checkout-hotel-btn is-active" data-hotel="Oceania">
+                            <span class="checkout-hotel-name">Hôtel Oceania</span>
+                            <span class="checkout-hotel-sub">Le Mesnil-Amelot</span>
+                        </button>
+                        <button type="button" class="checkout-hotel-btn" data-hotel="Nomad">
+                            <span class="checkout-hotel-name">Hôtel Nomad</span>
+                            <span class="checkout-hotel-sub">Le Mesnil-Amelot</span>
+                        </button>
+                    </div>
+                    <!-- Valeur technique utilisée par le script pour Stripe -->
+                    <input type="hidden" id="checkoutHotel" name="checkoutHotel" value="Oceania">
+                </div>
+
+                <!-- Compteur de passagers (+/-) -->
+                <div class="checkout-eurosatory-passengers">
+                    <p class="checkout-eurosatory-label">Nombre de passagers</p>
+                    <div class="checkout-passengers-control" aria-label="Sélection du nombre de passagers">
+                        <button type="button" class="checkout-passengers-btn checkout-passengers-minus" aria-label="Diminuer le nombre de passagers">−</button>
+                        <span id="checkoutPassengersDisplay" class="checkout-passengers-count">1</span>
+                        <button type="button" class="checkout-passengers-btn checkout-passengers-plus" aria-label="Augmenter le nombre de passagers">+</button>
+                    </div>
+                    <!-- Valeur technique envoyée à Stripe -->
+                    <input type="hidden" id="checkoutPassengers" name="checkoutPassengers" value="1">
+                </div>
+
+                <!-- Calculateur : total dynamique -->
+                <p class="checkout-eurosatory-total">
+                    Total à payer : <span id="checkoutTotalAmount">12€</span>
+                    <span class="checkout-eurosatory-total-detail">(<span id="checkoutTotalCount">1</span> x 12€)</span>
+                </p>
+
+                <button type="button" class="btn-primary checkout-eurosatory-btn" id="checkoutEurosatoryBtn">
+                    Payer par Carte Bancaire
+                </button>
+                <p class="checkout-eurosatory-note">Paiement sécurisé par Stripe. Le montant sera débité une seule fois pour l'ensemble des passagers sélectionnés.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img id="footerLogo" src="/images/favicon_white.png" alt="NCP - Logo" class="logo-img logo-img-footer">
+                </div>
+                <p class="footer-text" data-i18n="footer.description">Transport premium à Paris depuis 2014. NCP offre un service de qualité alliant confort, sécurité et ponctualité pour tous vos déplacements dans la capitale.</p>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 data-i18n="footer.navigation">Navigation</h4>
+                        <ul>
+                            <li><a href="/" data-i18n="nav.home">Accueil</a></li>
+                            <li><a href="/vehicules" data-i18n="nav.vehicles">Véhicules</a></li>
+                            <li><a href="/services" data-i18n="nav.services">Services</a></li>
+                            <li><a href="/destinations" data-i18n="nav.reims">Destinations</a></li>
+                            <li><a href="/reservation" data-i18n="nav.booking">Réservation</a></li>
+                            <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 data-i18n="footer.contactTitle">Contact</h4>
+                        <ul>
+                            <li data-i18n="footer.contact.phone">+33 1 XX XX XX XX</li>
+                            <li data-i18n="footer.contact.email">contact@ncp.fr</li>
+                            <li data-i18n="footer.contact.city">Paris, Île-de-France</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer.copyright">&copy; 2026 NCP. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>
+

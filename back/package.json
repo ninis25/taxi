@@ -1,0 +1,1 @@
+{"name":"sitewebtaci","version":"1.0.0","description":"Site web NCP - Taxi Premium Paris","main":"server.js","scripts":{"start":"node server.js"},"dependencies":{"body-parser":"^1.20.2","dotenv":"^16.6.1","express":"^4.22.1","nodemailer":"^8.0.1","pdfkit":"^0.15.2","stripe":"^14.25.0"}}

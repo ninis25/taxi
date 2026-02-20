@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCP - Taxi Premium Paris | Accueil</title>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <link rel="stylesheet" href="/style.css">
+    <link id="favicon" rel="icon" type="image/png" href="/images/favicon_white.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="/" class="logo-link" aria-label="NCP - Transport premium Paris">
+                    <img id="navbarLogo" src="/images/favicon_white.png" alt="NCP - Logo" class="logo-img">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="active" data-i18n="nav.home">Accueil</a></li>
+                <li><a href="/vehicules" data-i18n="nav.vehicles">Véhicules</a></li>
+                <li><a href="/services" data-i18n="nav.services">Services</a></li>
+                <li><a href="/destinations" data-i18n="nav.reims">Destinations</a></li>
+                <li><a href="/reservation" data-i18n="nav.booking">Réservation</a></li>
+                <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="language-switcher" aria-label="Choix de la langue du site">
+                    <button type="button" class="lang-btn" data-lang="fr" aria-label="Français">🇫🇷</button>
+                    <button type="button" class="lang-btn" data-lang="en" aria-label="English">🇬🇧</button>
+                    <button type="button" class="lang-btn" data-lang="de" aria-label="Deutsch">🇩🇪</button>
+                    <button type="button" class="lang-btn" data-lang="es" aria-label="Español">🇪🇸</button>
+                    <button type="button" class="lang-btn" data-lang="it" aria-label="Italiano">🇮🇹</button>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+                    <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line" data-i18n="home.hero.title.line1">Transport Premium</span>
+                <span class="title-line" data-i18n="home.hero.title.line2">à Paris</span>
+            </h1>
+            <p class="hero-subtitle" data-i18n="home.hero.subtitle">Découvrez l'excellence du transport premium parisien. Flotte exclusive Mercedes-Benz, chauffeurs expérimentés, service personnalisé 24/7 pour tous vos déplacements professionnels et privés dans la capitale et ses environs.</p>
+            <div class="hero-buttons">
+                <a href="/reservation" class="btn-primary" data-i18n="home.hero.cta.book">Réserver maintenant</a>
+                <a href="/vehicules" class="btn-secondary" data-i18n="home.hero.cta.vehicles">Découvrir nos véhicules</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- À Propos Section -->
+    <section class="about-us">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="section-header" style="text-align: left; margin-bottom: 3rem;">
+                        <h2 class="section-title" data-i18n="home.about.title">À Propos de NCP</h2>
+                        <p class="section-subtitle" style="text-align: left; max-width: 100%;" data-i18n="home.about.subtitle">Une histoire d'excellence et de passion pour le transport premium</p>
+                    </div>
+                    <div class="about-description">
+                        <p data-i18n="home.about.p1">Fondée en 2014, NCP est née d'une vision simple : offrir à Paris un service de transport premium qui allie élégance, ponctualité et discrétion. En 2026, cela représente déjà plus de 10 ans d'expérience, construits sur des valeurs fortes : l'excellence du service, le respect du client et l'innovation constante.</p>
+                        <p data-i18n="home.about.p2">Notre flotte exclusive de véhicules Mercedes-Benz est entretenue par des professionnels certifiés. Chaque véhicule est inspecté avant chaque course pour garantir votre sécurité et votre confort. Nos chauffeurs, tous professionnels expérimentés, connaissent parfaitement Paris et ses environs, vous garantissant des trajets optimisés et sans stress.</p>
+                        <p data-i18n="home.about.p3">Que vous soyez un dirigeant d'entreprise, un artiste, un diplomate ou simplement quelqu'un qui apprécie le luxe et le confort, NCP s'engage à vous offrir une expérience de transport inoubliable. Nous servons une clientèle exigeante qui apprécie la qualité, la discrétion et le professionnalisme.</p>
+                    </div>
+                    <div class="about-stats">
+                        <div class="about-stat-item">
+                            <div class="stat-number">10+</div>
+                            <div class="stat-label" data-i18n="home.about.stats.years">Années d'expérience</div>
+                        </div>
+                        <div class="about-stat-item">
+                            <div class="stat-number">5000+</div>
+                            <div class="stat-label" data-i18n="home.about.stats.clients">Clients satisfaits</div>
+                        </div>
+                        <div class="about-stat-item">
+                            <div class="stat-number">15000+</div>
+                            <div class="stat-label" data-i18n="home.about.stats.trips">Trajets réalisés</div>
+                        </div>
+                        <div class="about-stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label" data-i18n="home.about.stats.satisfaction">Taux de satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="/images/equipe.jpg" alt="Équipe professionnelle NCP - Chauffeurs et personnel dédié au transport premium parisien" class="about-img" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pourquoi Nous Choisir Section -->
+    <section class="why-us">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="home.why.title">Pourquoi NCP</h2>
+                <p class="section-subtitle" data-i18n="home.why.subtitle">Ce qui nous distingue dans le transport premium parisien</p>
+            </div>
+            <div class="why-us-grid">
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="home.why.card1.title">Expérience</h3>
+                    <p data-i18n="home.why.card1.text">Plus de 10 ans d'expertise dans le transport premium parisien. Réputation solide établie auprès de dirigeants d'entreprise, artistes, diplomates et clients exigeants qui apprécient la qualité et le professionnalisme.</p>
+                </div>
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="home.why.card2.title">Discrétion</h3>
+                    <p data-i18n="home.why.card2.text">Confidentialité absolue garantie pour tous vos déplacements. Tous nos chauffeurs sont soumis à une clause de confidentialité stricte et respectent votre vie privée en toutes circonstances.</p>
+                </div>
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"/>
+                            <polygon points="12 15 17 21 7 21 12 15"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="home.why.card3.title">Flotte Premium</h3>
+                    <p data-i18n="home.why.card3.text">Flotte exclusive de véhicules Mercedes-Benz récents (Classe E, Classe S, Classe V). Entretenus par des professionnels certifiés Mercedes-Benz. Inspection complète avant chaque course pour garantir sécurité et confort optimal.</p>
+                </div>
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="home.why.card4.title">Service Personnalisé</h3>
+                    <p data-i18n="home.why.card4.text">Service sur-mesure adapté à vos besoins spécifiques. Préférences mémorisées (température, musique, itinéraires), accueil personnalisé, et attention particulière à chaque détail pour une expérience unique.</p>
+                </div>
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="home.why.card5.title">Technologie Moderne</h3>
+                    <p data-i18n="home.why.card5.text">Réservation en ligne simple et rapide, suivi GPS en temps réel de votre véhicule, notifications SMS et email automatiques. Système de gestion moderne pour un service optimal et réactif.</p>
+                </div>
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="home.why.card6.title">Excellence Garantie</h3>
+                    <p data-i18n="home.why.card6.text">98% de taux de satisfaction client. Engagement à dépasser vos attentes à chaque trajet. Service client dédié disponible 24/7 pour répondre à tous vos besoins et garantir votre satisfaction totale.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerie Section -->
+    <section class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="home.gallery.title">Galerie</h2>
+                <p class="section-subtitle" data-i18n="home.gallery.subtitle">Découvrez notre flotte et nos véhicules en images</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="/images/interieur-classe-e.png" alt="Intérieur luxueux Mercedes Classe E - Sièges cuir, finitions premium, espace confortable" class="gallery-img" loading="lazy">
+                    <div class="gallery-overlay">
+                        <p data-i18n="home.gallery.caption.eInterior">Intérieur Classe E</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/images/interieur-classe-s.jpg" alt="Intérieur VIP Mercedes Classe S - Espace arrière premium, finitions cuir et bois précieux" class="gallery-img" loading="lazy">
+                    <div class="gallery-overlay">
+                        <p data-i18n="home.gallery.caption.sInterior">Intérieur Classe S</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/images/interieur-viano.jpg" alt="Intérieur aménagé Mercedes Classe V - Sièges individuels en cuir, espace pour 8 passagers" class="gallery-img" loading="lazy">
+                    <div class="gallery-overlay">
+                        <p data-i18n="home.gallery.caption.vInterior">Intérieur Classe V</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/images/chauffeur.jpg" alt="Chauffeur professionnel NCP en tenue formelle - Service premium et discret" class="gallery-img" loading="lazy">
+                    <div class="gallery-overlay">
+                        <p data-i18n="home.gallery.caption.driver">Chauffeur Professionnel</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/images/vehicule-action.jpg" alt="Véhicule Mercedes-Benz NCP en circulation dans les rues de Paris - Transport premium" class="gallery-img" loading="lazy">
+                    <div class="gallery-overlay">
+                        <p data-i18n="home.gallery.caption.vehicleAction">Véhicule en Action</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/images/equipements.webp" alt="Équipements premium" class="gallery-img" loading="lazy">
+                    <div class="gallery-overlay">
+                        <p data-i18n="home.gallery.caption.equipment">Équipements Premium</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Témoignages Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="home.testimonials.title">Témoignages</h2>
+                <p class="section-subtitle" data-i18n="home.testimonials.subtitle">Ce que nos clients disent de notre service</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text" data-i18n="home.testimonials.t1.text">"Service impeccable depuis plusieurs années. Chauffeur toujours ponctuel, professionnel et d'une discrétion absolue. Véhicule parfaitement entretenu et confortable. NCP est devenu mon partenaire de confiance pour tous mes déplacements professionnels à Paris."</p>
+                    <div class="testimonial-author">
+                        <strong data-i18n="home.testimonials.t1.name">Marie D.</strong>
+                        <span data-i18n="home.testimonials.t1.role">Directrice Marketing</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text" data-i18n="home.testimonials.t2.text">"J'utilise NCP régulièrement pour mes déplacements d'affaires depuis 3 ans. Service irréprochable à chaque fois, véhicules toujours impeccables et luxueux, chauffeurs expérimentés qui connaissent parfaitement Paris et ses meilleurs itinéraires. Un service premium qui justifie son prix."</p>
+                    <div class="testimonial-author">
+                        <strong data-i18n="home.testimonials.t2.name">Pierre L.</strong>
+                        <span data-i18n="home.testimonials.t2.role">CEO, Entreprise Tech</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text" data-i18n="home.testimonials.t3.text">"Pour notre mariage, nous avons choisi NCP pour transporter nos invités. Le Classe V était magnifique, l'intérieur premium impeccable, et le service absolument parfait. Nos invités ont été impressionnés par le professionnalisme et l'élégance. Un choix parfait pour notre grand jour."</p>
+                    <div class="testimonial-author">
+                        <strong data-i18n="home.testimonials.t3.name">Sophie &amp; Thomas</strong>
+                        <span data-i18n="home.testimonials.t3.role">Clients Premium</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Garanties Section -->
+    <section class="guarantees">
+        <div class="container">
+            <div class="guarantees-content">
+                <h2 class="guarantees-title" data-i18n="home.guarantees.title">Nos Engagements</h2>
+                <div class="guarantees-grid">
+                    <div class="guarantee-item">
+                        <div class="guarantee-number">100%</div>
+                        <h3 data-i18n="home.guarantees.g1.title">Satisfaction</h3>
+                        <p data-i18n="home.guarantees.g1.text">Engagement qualité à chaque trajet</p>
+                    </div>
+                    <div class="guarantee-item">
+                        <div class="guarantee-number">24/7</div>
+                        <h3 data-i18n="home.guarantees.g2.title">Disponibilité</h3>
+                        <p data-i18n="home.guarantees.g2.text">Service disponible à toute heure</p>
+                    </div>
+                    <div class="guarantee-item">
+                        <div class="guarantee-number">10+</div>
+                        <h3 data-i18n="home.guarantees.g3.title">Années</h3>
+                        <p data-i18n="home.guarantees.g3.text">D'expérience à Paris</p>
+                    </div>
+                    <div class="guarantee-item">
+                        <div class="guarantee-number">5000+</div>
+                        <h3 data-i18n="home.guarantees.g4.title">Clients</h3>
+                        <p data-i18n="home.guarantees.g4.text">Fidèles satisfaits</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 data-i18n="home.cta.title">Prêt à réserver votre trajet ?</h2>
+                <p data-i18n="home.cta.subtitle">Réservez en ligne en quelques clics ou contactez-nous directement</p>
+                <div class="cta-buttons">
+                    <a href="/reservation" class="btn-primary" data-i18n="home.cta.ctaBook">Réserver maintenant</a>
+                    <a href="/contact" class="btn-secondary" data-i18n="home.cta.ctaContact">Nous contacter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinations" class="destinations">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title destinations-title">Explorez la Champagne avec NCP</h2>
+                <p class="destinations-intro">Reims, capitale du Champagne, est une destination incontournable pour les amateurs de vin et de patrimoine. Entre ses maisons de champagne prestigieuses, sa cathédrale classée au patrimoine mondial de l'UNESCO et son histoire millénaire, la ville offre une expérience unique. NCP vous accompagne dans vos escapades champenoises avec un service premium et discret.</p>
+            </div>
+            <div class="search-destination-container">
+                <h3 class="search-destination-title">Réserver un trajet premium</h3>
+                <div class="search-destination-form">
+                    <input type="text" id="homeSearchInput" class="search-destination-input" placeholder="Où souhaitez-vous aller ?" aria-label="Rechercher une destination" autocomplete="off">
+                    <button type="button" id="homeSearchBtn" class="search-destination-btn" aria-label="Rechercher">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                    </button>
+                    <div id="homeSearchSuggestions" class="home-search-suggestions" hidden></div>
+                </div>
+                <div class="destinations-top5">
+                    <h4 class="top5-title">Top 5 des caves à visiter</h4>
+                    <ol class="top5-list">
+                        <li>Pommery</li>
+                        <li>Taittinger</li>
+                        <li>Veuve Clicquot</li>
+                        <li>Lanson</li>
+                        <li>Ruinart</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img id="footerLogo" src="/images/favicon_white.png" alt="NCP - Logo" class="logo-img logo-img-footer">
+                </div>
+                <p class="footer-text" data-i18n="footer.description">Transport premium à Paris depuis 2014. NCP offre un service de qualité alliant confort, sécurité et ponctualité pour tous vos déplacements dans la capitale.</p>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 data-i18n="footer.navigation">Navigation</h4>
+                        <ul>
+                            <li><a href="/" data-i18n="nav.home">Accueil</a></li>
+                            <li><a href="/vehicules" data-i18n="nav.vehicles">Véhicules</a></li>
+                            <li><a href="/services" data-i18n="nav.services">Services</a></li>
+                            <li><a href="/destinations" data-i18n="nav.reims">Destinations</a></li>
+                            <li><a href="/reservation" data-i18n="nav.booking">Réservation</a></li>
+                            <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 data-i18n="footer.contactTitle">Contact</h4>
+                        <ul>
+                            <li data-i18n="footer.contact.phone">+33 1 XX XX XX XX</li>
+                            <li data-i18n="footer.contact.email">contact@ncp.fr</li>
+                            <li data-i18n="footer.contact.city">Paris, Île-de-France</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer.copyright">
+                    &copy; 2026 NCP. Tous droits réservés.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>

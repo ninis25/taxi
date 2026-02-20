@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCP - Destinations | Champagne & Reims</title>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <link rel="stylesheet" href="/style.css">
+    <link id="favicon" rel="icon" type="image/png" href="/images/favicon_white.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="/" class="logo-link" aria-label="NCP - Transport premium Paris">
+                    <img id="navbarLogo" src="/images/favicon_white.png" alt="NCP - Logo" class="logo-img">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" data-i18n="nav.home">Accueil</a></li>
+                <li><a href="/vehicules" data-i18n="nav.vehicles">Véhicules</a></li>
+                <li><a href="/services" data-i18n="nav.services">Services</a></li>
+                <li><a href="/destinations" class="active" data-i18n="nav.reims">Destinations</a></li>
+                <li><a href="/reservation" data-i18n="nav.booking">Réservation</a></li>
+                <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="language-switcher" aria-label="Choix de la langue du site">
+                    <button type="button" class="lang-btn" data-lang="fr" aria-label="Français">🇫🇷</button>
+                    <button type="button" class="lang-btn" data-lang="en" aria-label="English">🇬🇧</button>
+                    <button type="button" class="lang-btn" data-lang="de" aria-label="Deutsch">🇩🇪</button>
+                    <button type="button" class="lang-btn" data-lang="es" aria-label="Español">🇪🇸</button>
+                    <button type="button" class="lang-btn" data-lang="it" aria-label="Italiano">🇮🇹</button>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+                    <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header : Reims (Cathédrale) avec parallaxe et overlay -->
+    <section class="page-header page-header-destinations" aria-label="En-tête Destinations Champagne">
+        <div class="page-header-parallax-bg" role="img" aria-hidden="true"></div>
+        <div class="page-header-overlay" aria-hidden="true"></div>
+        <div class="container page-header-content">
+            <h1>Destinations Champagne</h1>
+        </div>
+    </section>
+
+    <!-- Contenu Principal Destinations -->
+    <section class="destinations-content">
+        <div class="container">
+            <p class="destinations-hero-intro">Reims, la Cité des Sacres. Plongez dans l'histoire de la capitale mondiale du Champagne, où les grandes maisons cachent des trésors sous terre dans des crayères gallo-romaines classées à l'UNESCO.</p>
+            <p class="destinations-hero-exclusivity">Vivez une expérience hors du temps avec nos chauffeurs privés, guides de votre escapade en Champagne.</p>
+
+            <!-- Module de Recherche (capsule noire ultra-arrondie) -->
+            <div class="destinations-search-capsule">
+                <h2 class="destinations-search-title">Réserver un trajet premium</h2>
+                <div class="destinations-search-form-wrapper">
+                    <div class="destinations-search-form">
+                        <input type="text" id="destinationsSearchInput" class="destinations-search-input" placeholder="Où souhaitez-vous aller ?" aria-label="Rechercher une destination" autocomplete="off">
+                        <button type="button" class="destinations-search-btn" aria-label="Rechercher">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Suggestions API adresse.data.gouv.fr (saisie manuelle) -->
+                    <div class="destinations-api-suggestions" id="destinationsApiSuggestions" aria-label="Suggestions d'adresses" hidden></div>
+                </div>
+                <!-- Liste de suggestions (hôtels & maisons de Champagne — Top 5) -->
+                <div class="destinations-search-suggestions" id="destinationsSuggestions" aria-label="Suggestions de destinations" hidden>
+                    <button type="button" class="destinations-suggestion" data-destination="Hôtel Oceania - Eurosatory" data-type="hotel">
+                        <span class="destinations-suggestion-label">Hôtel Oceania - Eurosatory</span>
+                        <span class="destinations-suggestion-tag">Hôtel</span>
+                    </button>
+                    <button type="button" class="destinations-suggestion" data-destination="Hôtel Nomad - Eurosatory" data-type="hotel">
+                        <span class="destinations-suggestion-label">Hôtel Nomad - Eurosatory</span>
+                        <span class="destinations-suggestion-tag">Hôtel</span>
+                    </button>
+                    <button type="button" class="destinations-suggestion" data-destination="Pommery" data-type="cave">
+                        <span class="destinations-suggestion-label">Pommery</span>
+                        <span class="destinations-suggestion-tag">Champagne</span>
+                    </button>
+                    <button type="button" class="destinations-suggestion" data-destination="Taittinger" data-type="cave">
+                        <span class="destinations-suggestion-label">Taittinger</span>
+                        <span class="destinations-suggestion-tag">Champagne</span>
+                    </button>
+                    <button type="button" class="destinations-suggestion" data-destination="Veuve Clicquot" data-type="cave">
+                        <span class="destinations-suggestion-label">Veuve Clicquot</span>
+                        <span class="destinations-suggestion-tag">Champagne</span>
+                    </button>
+                    <button type="button" class="destinations-suggestion" data-destination="Lanson" data-type="cave">
+                        <span class="destinations-suggestion-label">Lanson</span>
+                        <span class="destinations-suggestion-tag">Champagne</span>
+                    </button>
+                    <button type="button" class="destinations-suggestion" data-destination="Ruinart" data-type="cave">
+                        <span class="destinations-suggestion-label">Ruinart</span>
+                        <span class="destinations-suggestion-tag">Champagne</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cartes des caves (Mega Style) -->
+            <div class="destinations-caves">
+                <h3 class="destinations-caves-title">Les grandes maisons de Champagne</h3>
+                <div class="cave-cards-grid">
+                    <article class="cave-card">
+                        <figure class="cave-card-figure">
+                            <div class="cave-card-image">
+                                <img src="https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=1600&h=1067&fit=crop" alt="Crayères de Pommery - cave de Champagne de luxe avec escaliers monumentaux" loading="lazy">
+                            </div>
+                            <figcaption class="cave-card-figcaption">Les crayères de Pommery</figcaption>
+                        </figure>
+                        <div class="cave-card-content">
+                            <h4 class="cave-card-title">Pommery</h4>
+                            <p class="cave-card-desc">Un palais élisabéthain et des caves d'art contemporain. Escaliers monumentaux et voyage entre art contemporain et tradition.</p>
+                            <a href="/reservation?destination=Pommery" class="cave-card-btn">Découvrir cette maison</a>
+                        </div>
+                    </article>
+                    <article class="cave-card">
+                        <figure class="cave-card-figure">
+                            <div class="cave-card-image">
+                                <img src="https://images.unsplash.com/photo-1474725041951-7b01377f2f2c?w=1600&h=1067&fit=crop" alt="Caves de Champagne Taittinger - crayères et patrimoine de Reims" loading="lazy">
+                            </div>
+                            <figcaption class="cave-card-figcaption">Les vignobles de la Montagne de Reims</figcaption>
+                        </figure>
+                        <div class="cave-card-content">
+                            <h4 class="cave-card-title">Taittinger</h4>
+                            <p class="cave-card-desc">Crayères gallo-romaines et patrimoine d'exception</p>
+                            <a href="/reservation?destination=Taittinger" class="cave-card-btn">Découvrir cette maison</a>
+                        </div>
+                    </article>
+                    <article class="cave-card">
+                        <figure class="cave-card-figure">
+                            <div class="cave-card-image">
+                                <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=1600&h=1067&fit=crop" alt="Reims - ville de la maison Veuve Clicquot, patrimoine mondial UNESCO" loading="lazy">
+                            </div>
+                            <figcaption class="cave-card-figcaption">Vue aérienne de la Cathédrale de Reims</figcaption>
+                        </figure>
+                        <div class="cave-card-content">
+                            <h4 class="cave-card-title">Veuve Clicquot</h4>
+                            <p class="cave-card-desc">L'empire de la Grande Dame du Champagne</p>
+                            <a href="/reservation?destination=Veuve%20Clicquot" class="cave-card-btn">Découvrir cette maison</a>
+                        </div>
+                    </article>
+                    <article class="cave-card">
+                        <figure class="cave-card-figure">
+                            <div class="cave-card-image">
+                                <img src="https://images.unsplash.com/photo-1536935338788-423bb59a7712?w=1600&h=1067&fit=crop" alt="Champagne Lanson - bouteilles de prestige en cave" loading="lazy">
+                            </div>
+                            <figcaption class="cave-card-figcaption">La maison Lanson, Reims</figcaption>
+                        </figure>
+                        <div class="cave-card-content">
+                            <h4 class="cave-card-title">Lanson</h4>
+                            <p class="cave-card-desc">La maison historique fondée en 1760</p>
+                            <a href="/reservation?destination=Lanson" class="cave-card-btn">Découvrir cette maison</a>
+                        </div>
+                    </article>
+                    <article class="cave-card">
+                        <figure class="cave-card-figure">
+                            <div class="cave-card-image">
+                                <img src="https://images.unsplash.com/photo-1547595628-c61a29f496f0?w=1600&h=1067&fit=crop" alt="Crayères de Ruinart - caves de Champagne de luxe classées UNESCO" loading="lazy">
+                            </div>
+                            <figcaption class="cave-card-figcaption">Les crayères de Ruinart</figcaption>
+                        </figure>
+                        <div class="cave-card-content">
+                            <h4 class="cave-card-title">Ruinart</h4>
+                            <p class="cave-card-desc">L'excellence de la plus ancienne maison, dans la profondeur des crayères classées à l'UNESCO. Née en 1729.</p>
+                            <a href="/reservation?destination=Ruinart" class="cave-card-btn">Découvrir cette maison</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Section Navettes Eurosatory 2026 -->
+            <div class="eurosatory-section">
+                <h3 class="eurosatory-title">Navettes Eurosatory 2026</h3>
+                <p class="eurosatory-dates">Salon Eurosatory — 15 au 19 juin 2026</p>
+                <p class="eurosatory-desc">NCP assure vos transferts exclusifs pour le plus grand salon de défense au monde, avec des navettes premium dédiées.</p>
+                <p class="eurosatory-hotels-label">Choisissez votre hôtel de départ&nbsp;:</p>
+                <div class="eurosatory-hotels" aria-label="Hôtels de départ">
+                    <div class="eurosatory-hotel">
+                        <span class="eurosatory-hotel-icon" aria-hidden="true">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        </span>
+                        <span class="eurosatory-hotel-name">Oceania</span>
+                    </div>
+                    <div class="eurosatory-hotel">
+                        <span class="eurosatory-hotel-icon" aria-hidden="true">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        </span>
+                        <span class="eurosatory-hotel-name">Nomad</span>
+                    </div>
+                </div>
+                <p class="eurosatory-hotels-place">Le Mesnil-Amelot</p>
+                <p class="eurosatory-roundtrip">Navette Aller-Retour incluse.</p>
+                <div class="eurosatory-tarif-badge">12€ par personne et par trajet</div>
+                <a href="/checkout-eurosatory" class="eurosatory-btn">Payer mon trajet (Stripe)</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img id="footerLogo" src="/images/favicon_white.png" alt="NCP - Logo" class="logo-img logo-img-footer">
+                </div>
+                <p class="footer-text" data-i18n="footer.description">Transport premium à Paris depuis 2014. NCP offre un service de qualité alliant confort, sécurité et ponctualité pour tous vos déplacements dans la capitale.</p>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 data-i18n="footer.navigation">Navigation</h4>
+                        <ul>
+                            <li><a href="/" data-i18n="nav.home">Accueil</a></li>
+                            <li><a href="/vehicules" data-i18n="nav.vehicles">Véhicules</a></li>
+                            <li><a href="/services" data-i18n="nav.services">Services</a></li>
+                            <li><a href="/destinations" data-i18n="nav.reims">Destinations</a></li>
+                            <li><a href="/reservation" data-i18n="nav.booking">Réservation</a></li>
+                            <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 data-i18n="footer.contactTitle">Contact</h4>
+                        <ul>
+                            <li data-i18n="footer.contact.phone">+33 1 XX XX XX XX</li>
+                            <li data-i18n="footer.contact.email">contact@ncp.fr</li>
+                            <li data-i18n="footer.contact.city">Paris, Île-de-France</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer.copyright">&copy; 2026 NCP. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>
