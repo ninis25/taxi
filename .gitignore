@@ -11,3 +11,5 @@ node_modules/
 npm-debug.log*
 *.log
 .DS_Store
+
+# Les images (front/images/, images/) ne sont PAS ignorées → elles partent au push
