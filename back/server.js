@@ -885,6 +885,7 @@ L'équipe NCP
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Serveur démarré avec succès sur http://localhost:${PORT}`);
+const HOST = process.env.HOST || '0.0.0.0';
+app.listen(PORT, HOST, () => {
+  console.log(`Serveur démarré sur http://${HOST}:${PORT}`);
 });
