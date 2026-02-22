@@ -1,0 +1,15 @@
+# flyctl launch added from .gitignore
+# Variables d'environnement (clés API, mots de passe)
+**/.env
+**/.env.local
+**/.env.*.local
+**/back/.env
+
+# Dépendances
+**/node_modules
+
+# Logs et cache
+**/npm-debug.log*
+**/*.log
+**/.DS_Store
+fly.toml
