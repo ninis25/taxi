@@ -1,13 +1,13 @@
-# fly.toml app configuration file generated for sitewebtaxi on 2026-02-22T08:42:20+01:00
+# fly.toml app configuration file generated for sitewebtaxi-shy-butterfly-399 on 2026-02-22T08:50:40+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'sitewebtaxi'
+app = 'sitewebtaxi-shy-butterfly-399'
 primary_region = 'fra'
 
 [build]
-  dockerfile = "Dockerfile"
+  dockerfile = 'Dockerfile'
 
 [http_service]
   internal_port = 8080

@@ -13,15 +13,27 @@ const frontDir = path.join(__dirname, '..', 'front');
 const imagesDir = path.join(__dirname, '..', 'images');
 const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
 
+// Chemin logo absolu (front/images puis images/) pour Fly.io et pdfkit/nodemailer
+function getLogoPath() {
+  const paths = [
+    path.join(__dirname, '..', 'front', 'images', 'logo-light.png'),
+    path.join(__dirname, '..', 'images', 'logo-light.png')
+  ];
+  for (const p of paths) {
+    if (fs.existsSync(p)) return p;
+  }
+  return null;
+}
+
 // Clé publique Stripe (pour référence ; le front l'utilise pour redirectToCheckout)
 const STRIPE_PUBLISHABLE_KEY = process.env.STRIPE_PUBLISHABLE_KEY || 'pk_test_51R54KoQA4O745tcxaI41YdQzMx9VhoHAALOSniWP1o0RyLIzpvix5tvMrUyzlFrRRwDzKb6pi9SQv21GmfyGeiSs00lDFzcH7K';
 
-// Transport email (Gmail) — données sensibles via process.env
+// Transport email (Gmail) — GMAIL_USER / GMAIL_APP_PASSWORD pour production (Fly.io)
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.EMAIL_USER || process.env.GMAIL_USER,
-    pass: process.env.EMAIL_PASS || process.env.GMAIL_APP_PASSWORD
+    user: process.env.GMAIL_USER || process.env.EMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD || process.env.EMAIL_PASS
   }
 });
 
@@ -125,11 +137,12 @@ async function sendAdminNotification(data) {
     statut
   } = data;
 
-  const fromEmail = process.env.EMAIL_USER || process.env.GMAIL_USER;
+  const fromEmail = process.env.GMAIL_USER || process.env.EMAIL_USER;
   if (!fromEmail) {
-    console.error('[admin-notif] EMAIL_USER non configuré');
+    console.error('[admin-notif] GMAIL_USER non configuré');
     return;
   }
+  console.log('[admin-notif] Envoi notification admin pour', nom || email);
 
   const typeLabel = type === 'stripe' ? '💳 Paiement Stripe' : '📝 Demande de réservation';
   const statutLabel = statut || (type === 'stripe' ? `Payé ${montant || '12'}€` : 'En attente de devis');
@@ -174,6 +187,7 @@ ${telephone ? `<tr><td style="padding:8px 0; color:#6b7280;">Téléphone</td><td
 <tr><td style="padding:8px 0; color:#6b7280;">Heure</td><td style="padding:8px 0;">${heure || '—'}</td></tr>
 ${vehicule ? `<tr><td style="padding:8px 0; color:#6b7280;">Véhicule</td><td style="padding:8px 0;">${vehicule}</td></tr>` : ''}
 ${passagers ? `<tr><td style="padding:8px 0; color:#6b7280;">Passagers</td><td style="padding:8px 0;">${passagers}</td></tr>` : ''}
+${type === 'stripe' && montant ? `<tr><td style="padding:8px 0; color:#6b7280;">Montant payé</td><td style="padding:8px 0; font-weight:600; color:#059669;">${montant}€</td></tr>` : ''}
 </table>
 </td></tr>
 
@@ -204,7 +218,7 @@ ${message ? `
       subject: `🔔 NOUVELLE RÉSERVATION - ${nom || 'Client'}`,
       html: htmlContent
     });
-    console.log('[admin-notif] Notification envoyée à', ADMIN_EMAIL, 'pour', nom);
+    console.log('[admin-notif] Mail admin envoyé à giroufua@gmail.com pour', nom);
   } catch (err) {
     console.error('[admin-notif] Erreur envoi:', err.message);
   }
@@ -248,10 +262,10 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
     const dateTrajet = session.metadata?.reservation_date || new Date().toLocaleDateString('fr-FR');
     const heureTrajet = session.metadata?.reservation_heure || '—';
 
-    // Config email
-    const fromEmail = process.env.EMAIL_USER || process.env.GMAIL_USER;
-    if (!fromEmail || !(process.env.EMAIL_PASS || process.env.GMAIL_APP_PASSWORD)) {
-      console.error('[webhook] Configuration email manquante (EMAIL_USER/EMAIL_PASS ou GMAIL_USER/GMAIL_APP_PASSWORD)');
+    // Config email (GMAIL_USER / GMAIL_APP_PASSWORD pour Fly.io)
+    const fromEmail = process.env.GMAIL_USER || process.env.EMAIL_USER;
+    if (!fromEmail || !(process.env.GMAIL_APP_PASSWORD || process.env.EMAIL_PASS)) {
+      console.error('[webhook] Configuration email manquante (GMAIL_USER/GMAIL_APP_PASSWORD)');
       return res.status(500).send('Configuration email manquante');
     }
     if (!customerEmail) {
@@ -259,13 +273,13 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
       return res.json({ received: true });
     }
 
+    const logoPath = getLogoPath();
     let logoBase64 = '';
-    const logoPath = path.join(imagesDir, 'logo-light.png');
-    if (fs.existsSync(logoPath)) {
+    if (logoPath) {
       logoBase64 = fs.readFileSync(logoPath, { encoding: 'base64' });
+      console.log('[webhook] Logo trouvé:', logoPath);
     } else {
-      const altPath = path.join(frontDir, 'images', 'logo-light.png');
-      if (fs.existsSync(altPath)) logoBase64 = fs.readFileSync(altPath, { encoding: 'base64' });
+      console.log('[webhook] Logo non trouvé (emails sans image)');
     }
     const logoDataUri = logoBase64 ? `data:image/png;base64,${logoBase64}` : '';
 
@@ -351,13 +365,14 @@ Notre équipe vous contactera sous 2h pour confirmer les derniers détails.
     // ═══════════════════════════════════════════════════════════════
     // MAIL N°2 : Facture officielle (PDF en pièce jointe)
     // ═══════════════════════════════════════════════════════════════
+    console.log('[webhook] Génération PDF facture lancée');
     const invoiceNumber = `NCP-${Date.now()}`;
     const invoiceDate = new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
     const quantity = 1;
     const unitPrice = 12.00;
     const totalTTC = quantity * unitPrice;
 
-    // Génération du PDF professionnel avec tableau
+    // Génération du PDF professionnel avec tableau (chemin logo absolu pour Fly)
     const pdfBuffer = await generateInvoicePDF({
       invoiceNumber,
       invoiceDate,
@@ -368,8 +383,9 @@ Notre équipe vous contactera sous 2h pour confirmer les derniers détails.
       quantity,
       unitPrice,
       totalTTC,
-      logoPath
+      logoPath: logoPath || undefined
     });
+    console.log('[webhook] PDF facture généré');
 
     // Corps du mail sobre et professionnel
     let invoiceBody = `Bonjour ${nom},
@@ -406,7 +422,7 @@ Transport Premium Paris`;
     console.log('[webhook] Mail 2 (facture PDF) envoyé à', customerEmail);
 
     // ═══════════════════════════════════════════════════════════════
-    // NOTIFICATION ADMIN : Copie de la réservation payée
+    // NOTIFICATION ADMIN : giroufua@gmail.com (chaque réservation payante)
     // ═══════════════════════════════════════════════════════════════
     await sendAdminNotification({
       type: 'stripe',
@@ -419,6 +435,7 @@ Transport Premium Paris`;
       montant: '12',
       statut: 'Payé 12€ via Stripe'
     });
+    console.log('[webhook] Mail admin envoyé à giroufua@gmail.com');
 
     console.log('[webhook] ✅ Tous les emails envoyés pour session', sessionId);
   } catch (err) {
@@ -468,6 +485,14 @@ app.get('/destinations', (req, res) => {
 
 app.get('/checkout-eurosatory', (req, res) => {
   res.sendFile(path.join(frontDir, 'checkout-eurosatory.html'));
+});
+
+// Page de succès après paiement Stripe (évite "Cannot GET /success.html")
+app.get('/success', (req, res) => {
+  res.sendFile(path.join(frontDir, 'success.html'));
+});
+app.get('/success.html', (req, res) => {
+  res.sendFile(path.join(frontDir, 'success.html'));
 });
 
 // Handler commun pour la navette Eurosatory (Stripe Checkout 12€ / passager)
@@ -565,12 +590,12 @@ app.post('/api/reservation', async (req, res) => {
     });
   }
 
-  const fromEmail = process.env.EMAIL_USER || process.env.GMAIL_USER;
-  const hasPrimaryCreds = process.env.EMAIL_USER && process.env.EMAIL_PASS;
-  const hasLegacyCreds = process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD;
+  const fromEmail = process.env.GMAIL_USER || process.env.EMAIL_USER;
+  const hasPrimaryCreds = process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD;
+  const hasLegacyCreds = process.env.EMAIL_USER && process.env.EMAIL_PASS;
 
   if (!hasPrimaryCreds && !hasLegacyCreds) {
-    console.error('EMAIL_USER/EMAIL_PASS ou GMAIL_USER/GMAIL_APP_PASSWORD doivent être définis (variables d\'environnement).');
+    console.error('GMAIL_USER/GMAIL_APP_PASSWORD (ou EMAIL_USER/EMAIL_PASS) doivent être définis.');
     return res.status(500).json({ success: false, message: 'Configuration email manquante.' });
   }
 
@@ -723,7 +748,8 @@ L'équipe NCP
       html: htmlConfirmationBody
     });
 
-    // 3. Notification admin (giroufua@gmail.com) - réservation gratuite/devis
+    // 3. Notification admin (giroufua@gmail.com) - CHAQUE réservation gratuite
+    console.log('[api/reservation] Envoi notification admin (devis) pour', nom);
     await sendAdminNotification({
       type: 'devis',
       nom,
@@ -738,6 +764,7 @@ L'équipe NCP
       message,
       statut: 'En attente de devis'
     });
+    console.log('[api/reservation] Mail admin envoyé à giroufua@gmail.com');
 
     return res.status(200).json({ success: true });
   } catch (err) {
@@ -888,4 +915,7 @@ L'équipe NCP
 const HOST = process.env.HOST || '0.0.0.0';
 app.listen(PORT, HOST, () => {
   console.log(`Serveur démarré sur http://${HOST}:${PORT}`);
+  console.log('[config] BASE_URL (Stripe success/cancel):', BASE_URL);
+  console.log('[config] Fichiers statiques (front):', frontDir);
+  console.log('[config] Logo:', getLogoPath() || 'non trouvé');
 });
